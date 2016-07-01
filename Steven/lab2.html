@@ -9,8 +9,6 @@
 		<style>
 			body {
 				font-family: sans-serif;
-				padding: 0em;
-				margin: 0em;
 			}
 			
 			input[type=text], select {
@@ -50,6 +48,11 @@
 				height: 100%;
 			}
 			
+			h1{
+				font-size: 5em;
+				font-family: serif;
+			}
+			
 			.center {
 				text-align: center;
 			}
@@ -76,6 +79,7 @@
 			
 			function checkForm() {
 				var backgroundDiv = document.getElementById("background");
+				var titleText = document.getElementById("title");
 				var errorsSpan = document.getElementById("subErrors");
 				var first = document.getElementById("firstName").value;
 				var last = document.getElementById("lastName").value;
@@ -101,11 +105,13 @@
 					i++;
 				}
 				
-				if(i == 0){
+				if(i == 0){ // no errors, send alert
+					titleText.style.color = 'black';
 					backgroundDiv.style.backgroundColor = 'white';
 					errorsSpan.innerHTML = "";
 					window.alert("Congratulations your information now belongs to the government!");
-				}else{
+				}else{ // print errors to html
+					titleText.style.color = 'white';
 					backgroundDiv.style.backgroundColor = 'red';
 					errorsSpan.innerHTML = errorsStr.join("");
 				}
@@ -115,7 +121,7 @@
 		</script>
 	</head>
 	<body Id = "background">
-		<h1 class = "center">Lab 2</h1>
+		<h1 class = "center" Id="title">Lab 2</h1>
 		<form class = "form" action = "#">
 			<p>
 				Firstname: 
