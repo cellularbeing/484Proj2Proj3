@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<!--lab2.html by Steven Blachowiak and Ivan Chacon-->
+
+<html>
+	<head>
+		<meta charset = “utf-8”>
+		<title>Lab2</title>
+		<style>
+			body {
+				font-family: sans-serif;
+				padding: 0em;
+				margin: 0em;
+			}
+			
+			input[type=text], select {
+				padding: 12px 20px;
+				width: 100%;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+			
+			input[type=button] {
+				background-color: #5369ac;
+				border: 1px solid #5369ac;
+				border-radius: 4px;
+				font-size: 1em;
+				color: white;
+				padding: 16px 32px;
+				margin: 4px 2px;
+				cursor: pointer;
+			}
+			
+			textarea {
+			  resize: none;
+			  	padding: 12px 20px;
+				width: 100%;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+			
+			div{
+				width: 100%;
+				height: 100%;
+			}
+			
+			.center{
+				text-align: center;
+			}
+
+			.form {
+				padding: .5em;
+				padding-left: 1em;
+				width: 50%;
+				margin: auto;
+				background-color: #e6e6e6;
+				border-radius: 4px;
+				border: .01em solid black;
+			}
+			
+			.error{
+				color: red;
+			}
+		</style>
+		<script>	
+			function start() {
+				var subButton = document.getElementById("subButton");
+				subButton.addEventListener("click",checkForm);
+			}
+			
+			function checkForm() {
+				var backgroundDiv = document.getElementById("background");
+				var errorsSpan = document.getElementById("subErrors");
+				var first = document.getElementById("firstName").value;
+				var last = document.getElementById("lastName").value;
+				var id = document.getElementById("idNum").value;
+				var bio = document.getElementById("Biography").value;
+				var words = bio.split(" ");
+				var errorsStr = []; // error output string array
+				var i = 0; // index
+				
+				if(/^[a-z]+$/i.test(first) && /^[a-z]+$/i.test(last) && /^[A-Z]/.test(first) && /^[A-Z]/.test(last)){ // name check
+				}else{
+					errorsStr[i] = "<p class='error'>First and last name must only consist of letters, the first letter must be capitalized.</p>";
+					i++;
+				}
+				
+				if(words.length > 25){ // Bio word count check
+					errorsStr[i] = "<p class='error'>Biography must be less than 25 words.</p>";
+					i++;
+				}
+				
+				if(!/^[0-9]+$/.test(id) || id.length != 9){ // ID number check
+					errorsStr[i] = "<p class='error'>ID number must consist of only 9 number characters.</p>"
+					i++;
+				}
+				
+				if(i == 0){
+					backgroundDiv.style.backgroundColor = 'white';
+					errorsSpan.innerHTML = "";
+					window.alert("Congratulations your information now belongs to the government!");
+				}else{
+					backgroundDiv.style.backgroundColor = 'red';
+					errorsSpan.innerHTML = errorsStr.join("");
+				    console.log(errorsStr.join(""));
+				}
+				
+
+				
+
+			}
+			
+			window.addEventListener("load",start);
+		</script>
+	</head>
+	<body>
+		<div Id = "background">
+			<h1 class = "center">Lab 2</h1>
+			<form class = "form" action = "#">
+				<p>
+					Firstname: 
+					<input type="text" Id="firstName" name="first">
+				</p>
+				<p>
+					Lastname: 
+					<input type="text" Id="lastName" name="last">
+				</p>
+				<p>
+					ID Number: 
+					<input type = "text" Id="idNum" name="ID">
+				</p>
+				<p>
+					Biography:
+					<textarea Id="Biography" cols="50" rows="5" name="Bio"></textarea>
+				</p>
+				<span Id="subErrors" class="errors"></span>
+				<p class="center">
+					<input Id="subButton" type="button" value="Submit">
+				</p>
+			</form>
+		</div>
+	</body>
+</html>
