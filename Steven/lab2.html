@@ -45,12 +45,12 @@
 				box-sizing: border-box;
 			}
 			
-			div{
+			div {
 				width: 100%;
 				height: 100%;
 			}
 			
-			.center{
+			.center {
 				text-align: center;
 			}
 
@@ -64,7 +64,7 @@
 				border: .01em solid black;
 			}
 			
-			.error{
+			.error {
 				color: red;
 			}
 		</style>
@@ -108,42 +108,35 @@
 				}else{
 					backgroundDiv.style.backgroundColor = 'red';
 					errorsSpan.innerHTML = errorsStr.join("");
-				    console.log(errorsStr.join(""));
 				}
-				
-
-				
-
 			}
-			
+
 			window.addEventListener("load",start);
 		</script>
 	</head>
-	<body>
-		<div Id = "background">
-			<h1 class = "center">Lab 2</h1>
-			<form class = "form" action = "#">
-				<p>
-					Firstname: 
-					<input type="text" Id="firstName" name="first">
-				</p>
-				<p>
-					Lastname: 
-					<input type="text" Id="lastName" name="last">
-				</p>
-				<p>
-					ID Number: 
-					<input type = "text" Id="idNum" name="ID">
-				</p>
-				<p>
-					Biography:
-					<textarea Id="Biography" cols="50" rows="5" name="Bio"></textarea>
-				</p>
-				<span Id="subErrors" class="errors"></span>
-				<p class="center">
-					<input Id="subButton" type="button" value="Submit">
-				</p>
-			</form>
-		</div>
+	<body Id = "background">
+		<h1 class = "center">Lab 2</h1>
+		<form class = "form" action = "#">
+			<p>
+				Firstname: 
+				<input type="text" Id="firstName" name="first">
+			</p>
+			<p>
+				Lastname: 
+				<input type="text" Id="lastName" name="last">
+			</p>
+			<p>
+				ID Number: 
+				<input type = "text" Id="idNum" name="ID">
+			</p>
+			<p>
+				Biography:
+				<textarea Id="Biography" cols="50" rows="5" name="Bio"></textarea>
+			</p>
+			<span Id="subErrors" class="errors"></span>
+			<p class="center">
+				<input Id="subButton" type="button" value="Submit">
+			</p>
+		</form>
 	</body>
 </html>
