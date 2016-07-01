@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type="text/css">
+    	h1   { 
+			text-align:center; 
+			color: #D0202E;
+			font-size:5em;
+			
+		}
+    	h4   { 
+			text-align:center; 
+			color: #D0202E;
+			font-size:0.75em;
+			
+		}		
+  		html { 
+			height: 100%;
+		
+		}
+	    body { 
+			height: 100%; 
+			margin: 0; 
+			padding: 0;
+			background-color: #EEEEEE;
+		}
+  		#map-canvas { 
+			height: 35em; 
+			width: 34em;
+			margin: auto;
+		}
+	</style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?sensor=false">
+    </script>
+    <script type="text/javascript">
+
+	var map;
+
+	function doubleClicked(e)
+	{
+		alert("Hi you double-clicked at latitude " + e.latLng.lat() + 
+					" and longitude " + e.latLng.lng() + " :-)");
+
+	}
+
+    function init()
+    {
+    	var mapOptions = {
+		    zoom: 16,
+		    center: new google.maps.LatLng(34.240, -118.5285),
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
+			disableDoubleClickZoom: true,
+			scrollwheel: false,
+			disableDefaultUI: true,
+			zoomControl: false,
+			draggable: false,
+			scaleControl: false,
+			clickableLabels: false 
+	    }
+	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+		map.setOptions({styles: [{featureType: "all", elementType: "labels", stylers: [ { visibility: "off" } ]}]});
+
+		
+		google.maps.event.addListener(map, 'dblclick', doubleClicked);
+    }
+    
+	window.addEventListener("load", init, false); 
+    </script>
+  </head>
+  
+  <body>
+  <h1>CSUN</h1>
+  <div id="map-canvas"></div>
+  <h4>By Ivan Chacon & Steven Blachowiak</h4>
+  </body>
+  </html>
