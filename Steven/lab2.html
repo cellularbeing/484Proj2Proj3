@@ -85,7 +85,7 @@
 				var errorsStr = []; // error output string array
 				var i = 0; // index
 				
-				if(/^[a-z]+$/i.test(first) && /^[a-z]+$/i.test(last) && /^[A-Z]/.test(first) && /^[A-Z]/.test(last)){ // name check
+				if(/^[a-z]+$/i.test(first) && /^[a-z]+$/i.test(last) && /^[A-Z]/.test(first) && /^[A-Z]/.test(last) && /^[A-Z](?=[a-z]+$)/.test(first) && /^[A-Z](?=[a-z]+$)/.test(last)){ // name check
 				}else{
 					errorsStr[i] = "<p class='error'>First and last name must only consist of letters, the first letter must be capitalized.</p>";
 					i++;
