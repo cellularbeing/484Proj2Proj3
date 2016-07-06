@@ -44,6 +44,7 @@
 	var map;
 	var jacaranda;
 	var sierra;
+	var library;
 	
 	var count = 0;
 	
@@ -57,8 +58,8 @@
 	
 	function doubleClicked(e)
 	{
-		/*alert("latitude: " + e.latLng.lat() + 
-					" longitude: " + e.latLng.lng());*/		
+		alert("latitude: " + e.latLng.lat() + 
+					" longitude: " + e.latLng.lng());		
 	}
 
     function init()
@@ -100,12 +101,46 @@
             )
         });
 		
+		library = new google.maps.Rectangle({
+            map: map,
+            strokeOpacity: 0,
+            fillOpacity: 0,			
+            bounds: new google.maps.LatLngBounds(
+				new google.maps.LatLng(34.2403874, -118.5299813),
+				new google.maps.LatLng(34.2399084, -118.5286509)
+            )
+        });
+		
+		orangeGrove = new google.maps.Rectangle({
+            map: map,
+            strokeOpacity: 0,
+            fillOpacity: 0,			
+            bounds: new google.maps.LatLngBounds(
+				new google.maps.LatLng(34.23687802, -118.5272347),
+				new google.maps.LatLng(34.23565103, -118.52476716)
+            )
+        });
+		
+		cypressHall = new google.maps.Rectangle({
+            map: map,
+            strokeOpacity: 0,
+            fillOpacity: 0,			
+            bounds: new google.maps.LatLngBounds(
+				new google.maps.LatLng(34.2366621, -118.5308825),
+				new google.maps.LatLng(34.2360945, -118.5293376)
+            )
+        });		
+		
 		google.maps.event.addListener(map, 'dblclick', doubleClicked);
+		testing();
     }
     
-	function testing(n){ //building display
-		//building.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
-		questionDisplay.innerHTML = "Where is " + locations[n] + "? " + n;
+	function testing(){ //building display
+		jacaranda.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
+		sierra.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
+		library.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
+		orangeGrove.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
+		cypressHall.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
 	}
 	
 	
