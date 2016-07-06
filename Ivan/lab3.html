@@ -131,16 +131,18 @@
             )
         });		
 		
-		google.maps.event.addListener(map, 'dblclick', doubleClicked);
-		testing();
+		//google.maps.event.addListener(map, 'dblclick', doubleClicked);
+		//testing();
+		//google.maps.event.addListener(jacaranda, 'dblclick', testing);
+		google.maps.event.addListener(jacaranda, 'dblclick', function() {testing(jacaranda);});
+		google.maps.event.addListener(sierra, 'dblclick', function() {testing(sierra);});
+		google.maps.event.addListener(library, 'dblclick', function() {testing(library);});
+		google.maps.event.addListener(orangeGrove, 'dblclick', function() {testing(orangeGrove);});
+		google.maps.event.addListener(cypressHall, 'dblclick', function() {testing(cypressHall);});
     }
     
-	function testing(){ //building display
-		jacaranda.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
-		sierra.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
-		library.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
-		orangeGrove.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
-		cypressHall.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
+	function testing(n){ //building display
+		n.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
 	}
 	
 	
