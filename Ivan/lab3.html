@@ -29,6 +29,12 @@
 			width: 34em;
 			margin: auto;
 		}
+		#theQuestion{
+            position: absolute;  
+            left: 27em; 
+			font-size: 2em;
+         }
+		
 	</style>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?sensor=false">
@@ -36,16 +42,29 @@
     <script type="text/javascript">
 
 	var map;
-
+	var jacaranda;
+	var sierra;
+	
+	var count = 0;
+	
+	var correct = '#008200';
+	var wrong = '#ff0000';
+	
+	var questionDisplay;
+	var questionNum = 0;
+	
+	var locations = ["Jacaranda", "Sierra"];
+	
 	function doubleClicked(e)
 	{
-		alert("Hi you double-clicked at latitude " + e.latLng.lat() + 
-					" and longitude " + e.latLng.lng() + " :-)");
-
+		/*alert("latitude: " + e.latLng.lat() + 
+					" longitude: " + e.latLng.lng());*/		
 	}
 
     function init()
     {
+		questionDisplay = document.getElementById("theQuestion");
+		
     	var mapOptions = {
 		    zoom: 16,
 		    center: new google.maps.LatLng(34.240, -118.5285),
@@ -60,18 +79,44 @@
 	    }
 	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 		map.setOptions({styles: [{featureType: "all", elementType: "labels", stylers: [ { visibility: "off" } ]}]});
-
+		
+        jacaranda = new google.maps.Rectangle({
+            map: map,
+			strokeOpacity: 0,
+            fillOpacity: 0,
+            bounds: new google.maps.LatLngBounds(
+                new google.maps.LatLng(34.242010, -118.529429),
+                new google.maps.LatLng(34.241052, -118.527799)
+            )
+        });
+		
+        sierra = new google.maps.Rectangle({
+            map: map,
+            strokeOpacity: 0,
+            fillOpacity: 0,			
+            bounds: new google.maps.LatLngBounds(
+				new google.maps.LatLng(34.238471, -118.531425),
+				new google.maps.LatLng(34.238045, -118.529955)
+            )
+        });
 		
 		google.maps.event.addListener(map, 'dblclick', doubleClicked);
     }
     
+	function testing(n){ //building display
+		//building.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
+		questionDisplay.innerHTML = "Where is " + locations[n] + "? " + n;
+	}
+	
+	
 	window.addEventListener("load", init, false); 
     </script>
   </head>
   
   <body>
-  <h1>CSUN</h1>
-  <div id="map-canvas"></div>
-  <h4>By Ivan Chacon & Steven Blachowiak</h4>
+	  <h1>CSUN</h1>
+	  <div id="map-canvas"></div>
+	  <h4>By Ivan Chacon & Steven Blachowiak</h4>
+	  <h2 id="theQuestion"></h2>
   </body>
   </html>
