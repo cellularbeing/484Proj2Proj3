@@ -3,15 +3,17 @@
   <head>
     <style type="text/css">
     	h1   { 
+    		padding-top: 0;
+    		margin-top: 0;
 			text-align:center; 
 			color: #D0202E;
-			font-size:5em;
+			font-size:3em;
 			
 		}
     	h4   { 
 			text-align:center; 
 			color: #D0202E;
-			font-size:0.75em;
+			font-size:.75em;
 			
 		}		
   		html { 
@@ -24,15 +26,20 @@
 			padding: 0;
 			background-color: #EEEEEE;
 		}
+		#map-canvas { 
+			height: 40em; 
+			width: 30em;
+			margin: auto;
+		}
   		#map-canvas { 
-			height: 35em; 
-			width: 34em;
+			height: 34em; 
+			width: 33em;
 			margin: auto;
 		}
 		#theQuestion{
-            position: absolute;  
-            left: 27em; 
-			font-size: 2em;
+           text-align:center; 
+            color: #D0202E;
+			font-size: 0.75em;
          }
 		
 	</style>
@@ -41,20 +48,21 @@
     </script>
     <script type="text/javascript">
 
-	var map;
 	var jacaranda;
 	var sierra;
 	var library;
 	
-	var count = 0;
+	var qCounter = 0;
+	var numCorrect = 0;
 	
 	var correct = '#008200';
 	var wrong = '#ff0000';
 	
-	var questionDisplay;
-	var questionNum = 0;
-	
-	var locations = ["Jacaranda", "Sierra"];
+	var qDisp;
+
+
+	var locations = ["Jacaranda", "Sierra", " the Orange Grove", "the Oviatt Library", "Cypress Hall"];
+	var mapList;
 	
 	function doubleClicked(e)
 	{
@@ -64,7 +72,7 @@
 
     function init()
     {
-		questionDisplay = document.getElementById("theQuestion");
+		qDisp = document.getElementById("theQuestion");
 		
     	var mapOptions = {
 		    zoom: 16,
@@ -78,9 +86,20 @@
 			scaleControl: false,
 			clickableLabels: false 
 	    }
-	  	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-		map.setOptions({styles: [{featureType: "all", elementType: "labels", stylers: [ { visibility: "off" } ]}]});
+	  	var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 		
+		map.setOptions({styles: [{featureType: "all", elementType: "labels", stylers: [ { visibility: "off" } ]}]});
+
+        dud = new google.maps.Rectangle({
+            map: map,
+			strokeOpacity: 0,
+            fillOpacity: 0,
+            bounds: new google.maps.LatLngBounds(
+                new google.maps.LatLng(34.244435, -118.533845),
+                new google.maps.LatLng(34.235637, -118.523223)
+            )
+        });
+
         jacaranda = new google.maps.Rectangle({
             map: map,
 			strokeOpacity: 0,
@@ -131,29 +150,78 @@
             )
         });		
 		
+		mapList = [jacaranda,sierra,orangeGrove,library,cypressHall];
+
+		//google.maps.event.addListener(map, 'dblclick', function() {testing(-1);});
 		//google.maps.event.addListener(map, 'dblclick', doubleClicked);
-		//testing();
-		//google.maps.event.addListener(jacaranda, 'dblclick', testing);
-		google.maps.event.addListener(jacaranda, 'dblclick', function() {testing(jacaranda);});
-		google.maps.event.addListener(sierra, 'dblclick', function() {testing(sierra);});
-		google.maps.event.addListener(library, 'dblclick', function() {testing(library);});
-		google.maps.event.addListener(orangeGrove, 'dblclick', function() {testing(orangeGrove);});
-		google.maps.event.addListener(cypressHall, 'dblclick', function() {testing(cypressHall);});
+		google.maps.event.addListener(dud, 'dblclick', function() {testing(-1);});
+		google.maps.event.addListener(jacaranda, 'dblclick', function() {testing(0);});
+		google.maps.event.addListener(sierra, 'dblclick', function() {testing(1);});
+		google.maps.event.addListener(orangeGrove, 'dblclick', function() {testing(2);});
+		google.maps.event.addListener(library, 'dblclick', function() {testing(3);});
+		google.maps.event.addListener(cypressHall, 'dblclick', function() {testing(4);});
+
+		quizStart();
     }
     
-	function testing(n){ //building display
-		n.setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
+	function quizStart(){ 
+		switch (qCounter) {
+           	case 0: setTimeout(function(){qDisp.innerHTML = "Where is " + locations[0] + "?";}, 1000);
+            break;
+            case 1: setTimeout(function(){qDisp.innerHTML = "Where is " + locations[1] + "?";}, 1000);
+            break;
+            case 2: setTimeout(function(){qDisp.innerHTML = "Where is " + locations[2] + "?";}, 1000);
+            break;
+           	case 3: setTimeout(function(){qDisp.innerHTML = "Where is " + locations[3] + "?";}, 1000);
+            break;
+            case 4: setTimeout(function(){qDisp.innerHTML = "Where is " + locations[4] + "?";}, 1000);
+            break;
+            default: setTimeout(results, 1000);
+        }
+	}
+	/* Used for testing
+	function doubleClicked(e)
+	{
+		alert("latitude " + e.latLng.lat() + 
+					" and longitude " + e.latLng.lng());
+
+	} */
+
+
+	function testing(n){ 
+		if(n == qCounter){
+			mapList[n].setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
+			numCorrect++;
+			qDisp.innerHTML = "Correct!";
+		}
+		else{
+			if(n === -1){
+				mapList[qCounter].setOptions({strokeOpacity: 1, strokeColor: wrong, fillOpacity: 0.3, fillColor: wrong});
+			}
+			else{
+				mapList[n].setOptions({strokeOpacity: 1, strokeColor: wrong, fillOpacity: 0.3, fillColor: wrong});
+			}
+			qDisp.innerHTML = "Incorrect";
+			
+		}
+		qCounter++;
+		quizStart();
 	}
 	
-	
+	function results(){
+		qDisp.innerHTML = "Results: " + numCorrect + "/" + locations.length;
+	}
+
 	window.addEventListener("load", init, false); 
     </script>
   </head>
   
   <body>
+  	<div id = "outerCanvas">
 	  <h1>CSUN</h1>
+	  <p id="theQuestion"></p>
 	  <div id="map-canvas"></div>
 	  <h4>By Ivan Chacon & Steven Blachowiak</h4>
-	  <h2 id="theQuestion"></h2>
+	 </div> 
   </body>
   </html>
