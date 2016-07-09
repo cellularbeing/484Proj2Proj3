@@ -16,20 +16,11 @@
 			font-size:.75em;
 			
 		}		
-  		html { 
-			height: 100%;
-		
-		}
 	    body { 
 			height: 100%; 
 			margin: 0; 
 			padding: 0;
 			background-color: #EEEEEE;
-		}
-		#map-canvas { 
-			height: 40em; 
-			width: 30em;
-			margin: auto;
 		}
   		#map-canvas { 
 			height: 34em; 
@@ -47,28 +38,28 @@
       src="https://maps.googleapis.com/maps/api/js?sensor=false">
     </script>
     <script type="text/javascript">
-
+	
+	//map locations 
 	var jacaranda;
 	var sierra;
 	var library;
+	var orangeGrove;
+	var cypressHall;
 	
-	var qCounter = 0;
-	var numCorrect = 0;
+	//counters to keep track of
+	var qCounter = 0; 			//the question number 
+	var numCorrect = 0;			//the number of correct answers 
 	
-	var correct = '#008200';
+	//used for coloring map locations upon clicking 
+	var correct = '#008200';	
 	var wrong = '#ff0000';
 	
+	//displays changing text 
 	var qDisp;
 
 
 	var locations = ["Jacaranda", "Sierra", " the Orange Grove", "the Oviatt Library", "Cypress Hall"];
 	var mapList;
-	
-	function doubleClicked(e)
-	{
-		alert("latitude: " + e.latLng.lat() + 
-					" longitude: " + e.latLng.lng());		
-	}
 
     function init()
     {
@@ -152,8 +143,6 @@
 		
 		mapList = [jacaranda,sierra,orangeGrove,library,cypressHall];
 
-		//google.maps.event.addListener(map, 'dblclick', function() {testing(-1);});
-		//google.maps.event.addListener(map, 'dblclick', doubleClicked);
 		google.maps.event.addListener(dud, 'dblclick', function() {testing(-1);});
 		google.maps.event.addListener(jacaranda, 'dblclick', function() {testing(0);});
 		google.maps.event.addListener(sierra, 'dblclick', function() {testing(1);});
@@ -164,6 +153,7 @@
 		quizStart();
     }
     
+	//handles questions in sequence
 	function quizStart(){ 
 		switch (qCounter) {
            	case 0: setTimeout(function(){qDisp.innerHTML = "Where is " + locations[0] + "?";}, 1000);
@@ -187,14 +177,14 @@
 
 	} */
 
-
+	//handles whether location item matches current question
 	function testing(n){ 
-		if(n == qCounter){
+		if(n == qCounter){ //if correct
 			mapList[n].setOptions({strokeOpacity: 1, strokeColor: correct, fillOpacity: 0.3, fillColor: correct});
 			numCorrect++;
 			qDisp.innerHTML = "Correct!";
 		}
-		else{
+		else{ //if wrong
 			if(n === -1){
 				mapList[qCounter].setOptions({strokeOpacity: 1, strokeColor: wrong, fillOpacity: 0.3, fillColor: wrong});
 			}
@@ -208,6 +198,7 @@
 		quizStart();
 	}
 	
+	//last function to be called when quiz is over. only displays results. 
 	function results(){
 		qDisp.innerHTML = "Results: " + numCorrect + "/" + locations.length;
 	}
