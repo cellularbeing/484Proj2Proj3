@@ -1,0 +1,20 @@
+Lab4
+
+By Steven Blachowiak and Ivan Chacon
+
+Lab4.zip contains:
+- lab4.php
+	> HTML document with the login and registration form. 
+- lab4.css
+	> CSS style sheet.
+- insert.php
+	> A PHP file that takes the users data from the registration form and inserts it into the database.
+	> If a duplicate user exists the user will not be added.
+- login.php
+	> Checks the database for a matched user and then checks if the passwords match before "logging" them on.
+	
+The whole project is COMPLETED. A user can register with a new username and password. If they are in the database they can log on.
+
+The extra credit is COMPLETED. The passwords (with salt appended) are stored in the database alongside the salt.
+
+There are NO restrictions to what can be a password or user name. The only restriction is that the username must not already be in the database.
