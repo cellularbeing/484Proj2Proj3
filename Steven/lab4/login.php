@@ -7,21 +7,23 @@
     </head>
     <body Id = "background">
 		<?php
-			// PHP to match info to the database and "login". By Steven Blachowiak and Ivan Chacon
+			//PHP to match info to the database and "login". By Steven Blachowiak and Ivan Chacon
 			$username = $_POST['username'];
 			$password = $_POST['password'];
 			
-			$link = mysqli_connect("localhost", "root", "", "users");
+			$link = mysqli_connect("localhost","root","","users");
 			if (!$link){
 				die('Did not connect : ' . mysqli_error($link));
 			}
 			
+			//Check database for entered username
 			$query = "SELECT * FROM user WHERE username = '$username'";
 			$result = mysqli_query($link, $query);
-			$row = mysqli_fetch_assoc($result);
-			$password = hash("sha512", $password . $row["salt"]);
+			$userRow = mysqli_fetch_assoc($result);
+			$password = hash("sha512", $password . $userRow["salt"]);
 			
-			if($password === $row["password"]){
+			//Check hashed entered password with password in database
+			if($password === $userRow["password"]){
 				echo '<h1 class="red center">Logged in!!!</h1>';
 			}
 			else{

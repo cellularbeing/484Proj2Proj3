@@ -1,6 +1,4 @@
-Lab4
-
-By Steven Blachowiak and Ivan Chacon
+Lab4 by Steven Blachowiak and Ivan Chacon
 
 Lab4.zip contains:
 - lab4.php
@@ -13,7 +11,7 @@ Lab4.zip contains:
 - login.php
 	> Checks the database for a matched user and then checks if the passwords match before "logging" them on.
 	
-The whole project is COMPLETED. A user can register with a new username and password. If they are in the database they can log on.
+The whole project is complete. A user can register with a new username and password. If they are in the database they can log on.
 
 The extra credit is COMPLETED. The passwords (with salt appended) are stored in the database alongside the salt.
 
